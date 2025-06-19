@@ -88,7 +88,8 @@ export default function Profile() {
           {saving ? 'Guardando...' : 'Cambiar foto'}
         </button>
       </form>
-      <h2 style={{ margin: 0 }}>{user.username}</h2>
+      <h2 style={{ margin: 0 }}
+      >{user.username}</h2>
       <p style={{ color: '#FFFF', margin: '8px 0' }}>{user.email}</p>
       <p><strong>Miembro desde:</strong> {user.createdAt ? new Date(user.createdAt).toLocaleDateString() : '---'}</p>
       {/* Puedes agregar más información aquí */}
