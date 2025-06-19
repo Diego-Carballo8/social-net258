@@ -1,0 +1,230 @@
+/* ===== IMPORTAMOS UNA FUENTE CURSIVA Y ELEGANTE ===== */
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+
+/* ===== FONDO TURQUESA DIFUMINADO ===== */
+body {
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #1abc9c, #00bcd4, #0097a7);
+  background-size: 200% 200%;
+  animation: gradientAnimation 15s ease infinite;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; /* centra verticalmente */
+  padding: 0;              /* quita el padding superior */
+  min-height: 100vh;
+  margin: 0;
+}
+
+@keyframes gradientAnimation {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* ===== CONTENEDOR PRINCIPAL ===== */
+.main-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+  padding: 0 20px; /* sin padding arriba para evitar hueco */
+  flex-wrap: wrap;
+  width: 100%;
+  max-width: 1200px;
+  min-height: 80vh; /* ayuda a centrar verticalmente */
+}
+
+/* ===== CONTENEDOR DE IMÁGENES ===== */
+.image-container {
+  flex: 1;
+  max-width: 500px; /* más ancho */
+}
+
+.image-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.image-stack img {
+  width: 100%;
+  min-width: 320px;
+  max-width: 500px;
+  border-radius: 20px;
+  padding: 5px;
+  background: linear-gradient(45deg, #ff6ec4, #7873f5, #4ade80);
+  background-size: 600% 600%;
+  animation: borderGradient 8s ease infinite;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  object-fit: cover;
+  display: block;
+  margin: 0 auto;
+}
+
+@keyframes borderGradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* ===== FORMULARIO ===== */
+form {
+  background-color: rgba(255, 255, 255, 0.97);
+  border: 1px solid #cfd9df;
+  border-radius: 16px;
+  padding: 40px 30px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  backdrop-filter: blur(10px);
+}
+
+/* ===== TÍTULO CURSIVO Y LLAMATIVO ===== */
+h2 {
+  font-family: 'Pacifico', cursive;
+  font-size: 36px;
+  color: #007d87;
+  margin-bottom: 10px;
+  text-align: center;
+  font-weight: 400;
+  letter-spacing: 1px;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.15);
+}
+
+/* ===== ETIQUETAS MEJORADAS Y LLAMATIVAS ===== */
+label {
+  font-size: 15px;
+  font-weight: 600;
+  color: #007d87;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  margin-bottom: 4px;
+  display: block;
+  text-shadow: 0.5px 0.5px 1px rgba(0,0,0,0.1);
+}
+
+/* ===== CAMPOS ===== */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+textarea {
+  width: 100%;
+  padding: 12px 14px;
+  font-size: 14px;
+  background-color: #f9f9f9;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-sizing: border-box;
+  transition: border 0.3s ease;
+  font-family: 'Poppins', sans-serif;
+}
+
+input:focus,
+textarea:focus {
+  border-color: #1abc9c;
+  outline: none;
+  background-color: #fff;
+}
+
+textarea {
+  resize: none;
+  min-height: 80px;
+}
+
+/* ===== BOTÓN ===== */
+input[type="submit"] {
+  background: linear-gradient(to right, #1abc9c, #00bcd4);
+  border: none;
+  color: white;
+  font-weight: bold;
+  padding: 12px;
+  font-size: 15px;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: background 0.4s ease;
+  letter-spacing: 1px;
+  box-shadow: 0 4px 12px rgba(0, 188, 212, 0.3);
+}
+
+input[type="submit"]:hover {
+  background: linear-gradient(to right, #00bcd4, #1abc9c);
+}
+
+/* ===== ENLACE DE LOGIN ===== */
+p {
+  margin-top: 10px;
+  text-align: center;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+p a {
+  color: #fff;
+  font-weight: bold;
+  text-decoration: underline;
+  /* ==== RESALTADO PARA REGISTRO ==== */
+  background: linear-gradient(90deg, #ff6ec4 0%, #4ade80 100%);
+  padding: 3px 10px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(255, 110, 196, 0.15);
+  transition: background 0.3s, color 0.3s;
+}
+
+p a:hover {
+  color: #fff;
+  background: linear-gradient(90deg, #4ade80 0%, #ff6ec4 100%);
+}
+
+/* ===== RESPONSIVO ===== */
+@media (max-width: 400px) {
+  form {
+    padding: 30px 20px;
+  }
+
+  h2 {
+    font-size: 28px;
+  }
+
+  label {
+    font-size: 13.5px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .main-container {
+    flex-direction: column;
+    padding: 40px 10px;
+    min-height: 100vh;
+  }
+
+  .image-container,
+  .login-container {
+    max-width: 100%;
+  }
+
+  .image-stack img {
+    height: auto;
+    min-width: 0;
+    max-width: 100%;
+  }
+}
+
+.login-container {
+  background-color: rgba(255, 255, 255, 0.97);
+  border: 1px solid #cfd9df;
+  border-radius: 16px;
+  padding: 40px 30px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  backdrop-filter: blur(10px);
+}
