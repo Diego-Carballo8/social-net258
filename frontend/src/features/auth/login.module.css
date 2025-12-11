@@ -1,0 +1,106 @@
+:root{
+  /* Replace these URLs with your Imgur direct image links if you have them */
+  --bg1: url('https://i.postimg.cc/CLFsssVG/1000062516.jpg');
+  --bg2: url('https://i.postimg.cc/ryfhDPB6/depositphotos-557351356-stock-photo-young-group-of-people-laughing.jpg');
+}
+
+.page{
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: linear-gradient(rgba(6,24,42,0.45), rgba(6,24,42,0.45)), var(--bg1);
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  padding: 40px 20px;
+}
+
+/* Optional second layer for subtle parallax when screen is wide */
+@media (min-width: 1000px){
+  .page{ background-image: linear-gradient(rgba(6,24,42,0.45), rgba(6,24,42,0.45)), var(--bg1), var(--bg2); background-blend-mode: overlay, normal; }
+}
+
+.modalLight{
+  width: 100%;
+  max-width: 480px;
+  background: rgba(255,255,255,0.92);
+  border-radius: 12px;
+  padding: 28px 26px;
+  box-shadow: 0 10px 30px rgba(2,6,23,0.08);
+  border: 1px solid rgba(15,23,42,0.06);
+  color: #10212a;
+}
+
+.modalDark{
+  width: 100%;
+  max-width: 480px;
+  background: rgba(10,18,28,0.45);
+  border-radius: 12px;
+  padding: 28px 26px;
+  box-shadow: 0 10px 30px rgba(2,6,23,0.6), inset 0 1px 0 rgba(255,255,255,0.04);
+  backdrop-filter: blur(8px) saturate(120%);
+  -webkit-backdrop-filter: blur(8px) saturate(120%);
+  border: 1px solid rgba(255,255,255,0.08);
+  color: #eaf6ff;
+}
+
+.brand{
+  margin: 0 0 6px 0;
+  font-size: 28px;
+  font-weight: 700;
+  text-align: center;
+  background: linear-gradient(135deg,#0b67d1,#0a3fa8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.brandDark{ color: #eaf6ff }
+
+.subtitle{
+  margin: 0 0 18px 0;
+  text-align: center;
+  color: rgba(240,249,255,0.85);
+  font-size: 14px;
+}
+
+.form{ display:flex; flex-direction:column; gap:14px; }
+.form label{ display:block; font-size:13px; margin-bottom:6px; color:rgba(16,33,42,0.8); }
+.input{ width:100%; padding:10px 12px; border-radius:6px; border:1px solid rgba(15,23,42,0.08); background: #fff; color:#10212a; outline:none; }
+.input::placeholder{ color:rgba(16,33,42,0.4); }
+.input:focus{ box-shadow: 0 6px 18px rgba(16,33,42,0.06); border-color: rgba(16,33,42,0.14); }
+
+/* dark modal input overrides */
+.modalDark .input{ background: rgba(10,18,28,0.45); color:#eaf6ff; border:1px solid rgba(255,255,255,0.06) }
+.modalDark .input::placeholder{ color: rgba(234,246,255,0.5) }
+.modalDark .form label{ color: rgba(234,246,255,0.8) }
+
+.metaRow{ display:flex; justify-content:space-between; font-size:13px; color:rgba(234,246,255,0.75); }
+.forgot{ color:rgba(234,246,255,0.75); text-decoration:none; }
+
+.primaryBtn{
+  margin-top:6px;
+  padding:12px 16px; border-radius:8px; border:none; cursor:pointer;
+  background: linear-gradient(180deg, rgba(10,30,45,0.95), rgba(3,15,25,0.9));
+  color: #eaf6ff; font-weight:700;
+}
+.primaryBtn:disabled{ opacity:0.6; cursor:not-allowed; }
+
+.formMeta{ text-align:center; margin-top:12px; font-size:13px; color:rgba(234,246,255,0.75); }
+.registerLink{ color:#dcefff; text-decoration:underline; }
+.error{ color:#ffb3b3; text-align:center; margin-top:8px; }
+
+@media (max-width: 520px){
+  .modal{ padding:20px; margin:10px; }
+  .brand{ font-size:22px; }
+}
+
+/* Utility small tweaks so text is legible over image */
+footer.footer{ color:rgba(255,255,255,0.7); text-align:center; padding:18px 0; }
+
+/* File input and avatar preview styles used by Register component */
+.fileInputWrapper { display:flex; flex-direction:column; gap:8px; color: rgba(235,245,255,0.85); }
+.fileInput { padding:10px 12px; border:1px dashed rgba(255,255,255,0.12); border-radius:10px; background: rgba(255,255,255,0.03); color: #eaf6ff }
+.avatarPreview { width:96px; height:96px; border-radius:10px; object-fit:cover; display:inline-block; border: 2px solid rgba(255,255,255,0.06); }
+
+.primaryBtn { background: linear-gradient(90deg,#1f7fff,#6b46ff); }

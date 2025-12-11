@@ -1,37 +1,57 @@
 import { useEffect, useState } from "react";
+import styles from "./UserList.module.css";
 
 export default function UserList({ onSelect, selectedUserId }) {
   const [usuarios, setUsuarios] = useState([]);
 
   useEffect(() => {
     async function cargarUsuarios() {
-      const res = await fetch("http://localhost:3000/api/v1/users");
-      const data = await res.json();
-      setUsuarios(data);
+      try {
+        const res = await fetch("http://localhost:3000/api/v1/users");
+        const data = await res.json();
+        setUsuarios(data);
+      } catch (err) {
+        console.error("Error cargando usuarios:", err);
+      }
     }
     cargarUsuarios();
   }, []);
 
   return (
-    <div>
-      <h2 style={{ textAlign: "center" }}>Usuarios</h2>
-      <ul style={{ listStyle: "none", padding: 0 }}>
+    <div className={styles.userListContainer}>
+      <div className={styles.listHeader}>
+        <h2 className={styles.title}>Mensajes</h2>
+        <button className={styles.headerIcon} aria-label="Crear chat" title="Nuevo chat">⚡</button>
+      </div>
+
+      <div style={{ position: 'relative' }}>
+        <input
+          type="text"
+          placeholder="Buscar usuario..."
+          className={styles.searchInput}
+          aria-label="Buscar usuarios"
+        />
+        <div style={{ position: 'absolute', left: 22, top: 18, pointerEvents: 'none', color: 'var(--muted)' }}>🔍</div>
+      </div>
+
+      <ul className={styles.userList}>
         {usuarios.map(u => (
-          <li key={u._id} style={{ marginBottom: 8 }}>
+          <li key={u._id} className={styles.userItem}>
             <button
-              style={{
-                width: "100%",
-                padding: 10,
-                borderRadius: 8,
-                border: selectedUserId === u._id ? "2px solid #1976d2" : "1px solid #1976d2",
-                background: selectedUserId === u._id ? "#e3f2fd" : "#fff",
-                color: "#1976d2",
-                fontWeight: "bold",
-                cursor: "pointer"
-              }}
+              className={`${styles.userButton} ${selectedUserId === u._id ? styles.active : ""}`}
               onClick={() => onSelect(u._id)}
+              aria-pressed={selectedUserId === u._id}
             >
-              {u.username}
+              <div className={styles.userAvatar} aria-hidden>
+                {u.username ? u.username.charAt(0).toUpperCase() : "U"}
+              </div>
+              <div className={styles.userDetails}>
+                <h3 className={styles.username}>{u.username}</h3>
+                <p className={styles.lastMessage}>En línea</p>
+              </div>
+              <div className={styles.userTime}>
+                {new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+              </div>
             </button>
           </li>
         ))}

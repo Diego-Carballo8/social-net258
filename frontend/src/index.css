@@ -1,6 +1,6 @@
 :root {
     --primary-blue: #007bff;
-    --secondary-orange: #ff7f50;
+    --secondary-blue: #0056b3;
     --neutral-white: #ffffff;
     --light-gray: #f0f2f5;
     --dark-text: #343a40;
@@ -44,22 +44,37 @@ body {
 }
 
 .image-stack {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-/* ✅ Efecto estético con borde degradado animado */
-.image-stack img {
   width: 100%;
   border-radius: 20px;
-  padding: 5px;
-  background: linear-gradient(45deg, #ff6ec4, #7873f5, #4ade80);
-  background-size: 600% 600%;
-  animation: borderGradient 8s ease infinite;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 12px 40px rgba(0, 123, 255, 0.15);
   object-fit: cover;
+  border: 3px solid rgba(0, 123, 255, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease, opacity 0.3s ease;
+  /* make images look like a soft background */
+  filter: blur(1px) brightness(0.6) saturate(0.95);
+  opacity: 0.65;
 }
+
+.image-stack img:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 16px 48px rgba(0, 123, 255, 0.25);
+  filter: blur(0.6px) brightness(0.7) saturate(0.98);
+}
+
+/* overlay to dim background images further when needed */
+.image-container::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,0.08), rgba(0,0,0,0.22));
+  border-radius: 20px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ensure main content displays above images */
+.main-container { position: relative; z-index: 2 }
+.image-container { position: relative; z-index: 1; pointer-events: none }
 
 @keyframes borderGradient {
   0% { background-position: 0% 50%; }
@@ -75,6 +90,8 @@ body {
   max-width: 350px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
   text-align: center;
+  position: relative;
+  z-index: 3;
 }
 
 h2 {
@@ -99,7 +116,7 @@ input[type="password"] {
 }
 
 input[type="submit"].btn {
-  background: linear-gradient(to right, #a18cd1, #fbc2eb);
+  background: linear-gradient(to right, var(--primary-blue), var(--secondary-blue));
   color: white;
   padding: 12px;
   width: 100%;
@@ -107,11 +124,12 @@ input[type="submit"].btn {
   border-radius: 30px;
   font-size: 16px;
   cursor: pointer;
-  transition: opacity 0.3s;
+  transition: opacity 0.3s, transform 0.12s ease;
 }
 
 input[type="submit"].btn:hover {
-  opacity: 0.9;
+  opacity: 0.95;
+  transform: translateY(-2px);
 }
 
 .forgot-password {
@@ -169,6 +187,4 @@ input[type="submit"].btn:hover {
   }
 }
 
-p {
-  color: red;
-}
+/* Remove default red color from paragraphs */

@@ -25,3 +25,20 @@ export const getMessages = async (req, res) => {
     res.status(500).json({ message: 'Error al obtener mensajes', error: error.message });
   }
 };
+
+export const deleteMessage = async (req, res) => {
+  try {
+    const msg = await Message.findById(req.params.id);
+    if (!msg) return res.status(404).json({ message: 'Mensaje no encontrado' });
+
+    const requesterId = req.user?.userId || req.user?._id;
+    if (!requesterId || msg.from.toString() !== requesterId.toString()) {
+      return res.status(403).json({ message: 'No tienes permiso para eliminar este mensaje' });
+    }
+
+    await Message.findByIdAndDelete(req.params.id);
+    res.json({ message: 'Mensaje eliminado' });
+  } catch (error) {
+    res.status(500).json({ message: 'Error al eliminar mensaje', error: error.message });
+  }
+};

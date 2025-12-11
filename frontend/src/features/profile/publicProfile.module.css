@@ -1,0 +1,44 @@
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 16px;
+}
+
+.backBtn {
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  background: #fff;
+  color: #333;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-bottom: 12px;
+}
+
+.card {
+  background: #fff;
+  border: 1px solid #ececec;
+  border-radius: 12px;
+  padding: 18px;
+  margin-bottom: 20px;
+}
+
+.avatar { width: 96px; height: 96px; border-radius: 50%; object-fit: cover; display:block; margin: 0 auto 12px; }
+
+.info { text-align: center; }
+.username { font-size: 20px; margin: 0; color: #111; }
+.email { color: #666; font-size: 13px; margin-top: 6px; }
+.meta { color:#999; font-size:12px; margin-top:8px; }
+
+.postsSection { margin-top: 18px; }
+.postsTitle { text-align:center; font-weight:700; margin-bottom:12px; }
+.postsList { display:grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 12px; }
+.postPreview { border:1px solid #f0f0f0; border-radius:10px; overflow:hidden; background:#fff; }
+.postImage { width:100%; height:160px; object-fit:cover; }
+.postContent { padding:10px; font-size:13px; color:#333; }
+.postMeta { padding:0 10px 12px; font-size:12px; color:#888; }
+
+.emptyPosts { text-align:center; padding:24px; color:#999; border-radius:8px; background:#fafafa; }
+
+.center { text-align:center; padding:40px; color:#666; }
+
+@media (max-width:600px){ .postsList { grid-template-columns: 1fr; } .avatar{ width:84px; height:84px; } }

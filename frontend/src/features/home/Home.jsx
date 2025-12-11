@@ -3,12 +3,14 @@ import { useNavigate, Link } from 'react-router-dom';
 import styles from './style.module.css';
 import PostList from '../posts/PostList';
 import PostFeed from '../posts/PostFeed';
+import UserSearch from '../users/UserSearch';
 
 const API_BASE_URL = 'http://localhost:3000/api/v1';
 
 const Home = () => {
   const [posts, setPosts] = useState([]);
   const [topics, setTopics] = useState([]);
+  const [user, setUser] = useState(null);
   const topicsContainerRef = useRef(null);
 
   const navigate = useNavigate();
@@ -41,6 +43,26 @@ const Home = () => {
     loadTopics();
   }, []);
 
+  useEffect(() => {
+    async function loadUser() {
+      try {
+        const token = localStorage.getItem('token');
+        const userId = localStorage.getItem('userId');
+        if (!token || !userId) return;
+        const response = await fetch(`${API_BASE_URL}/users/${userId}`, {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        if (response.ok) {
+          const userData = await response.json();
+          setUser(userData);
+        }
+      } catch (error) {
+        console.log('Error loading user:', error);
+      }
+    }
+    loadUser();
+  }, []);
+
   const handleTopicsScroll = () => {
     if (topicsContainerRef.current) {
       topicsContainerRef.current.scrollBy({ left: 200, behavior: 'smooth' });
@@ -49,6 +71,9 @@ const Home = () => {
 
   const handleLogout = () => {
     localStorage.removeItem('token');
+    localStorage.removeItem('userId');
+    // remove any other auth-related keys if present
+    localStorage.removeItem('user');
     navigate('/login');
   };
 
@@ -60,11 +85,12 @@ const Home = () => {
         <div className={styles.logo}>
           <i className="fas fa-bolt"></i> Snappy
         </div>
+        <UserSearch />
         <div className={styles.headerIcons}>
           <i className={`fas fa-bell ${styles.icon}`}></i>
           <div className={styles.profileArea}>
             <img
-              src="https://randomuser.me/api/portraits/men/32.jpg"
+              src={user?.avatar || "https://randomuser.me/api/portraits/men/32.jpg"}
               alt="Perfil"
               className={styles.profileThumb}
             />
@@ -107,7 +133,11 @@ const Home = () => {
         </section>
 
         <section className={styles.feedSection}>
-          <PostFeed posts={posts} onPostCreated={post => setPosts([post, ...posts])} />
+          <PostFeed
+            posts={posts}
+            onPostCreated={post => setPosts([post, ...posts])}
+            onPostDeleted={id => setPosts(posts.filter(p => p._id !== id && p.id !== id))}
+          />
           {/* Títulos debajo del formulario */}
           <h2 className={styles.sectionTitle}>Publicaciones recientes</h2>
           <h2 className={styles.sectionTitle}>Últimas publicaciones</h2>
@@ -119,13 +149,13 @@ const Home = () => {
       </main>
 
       <nav className={styles.footerNav}>
-        <Link to="/" className={styles.navItem}>
+        <Link to="/home" className={styles.navItem}>
           <i className="fas fa-home"></i><span>Inicio</span>
         </Link>
         <Link to="/publicar" className={styles.navItem}>
-          <i className="fas fa-plus-circle"></i><span><a href="CreatePost.jsx"></a>Publicar</span>
+            <i className="fas fa-plus-circle"></i><span>Publicar</span>
         </Link>
-        <Link to={userId ? `/chat/${userId}` : "/"} className={styles.navItem}>
+        <Link to={userId ? `/chat/${userId}` : "/chat"} className={styles.navItem}>
           <i className="fas fa-user-friends"></i><span>Chat</span>
         </Link>
         <Link to="/profile" className={styles.navItem}>

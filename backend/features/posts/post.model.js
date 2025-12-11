@@ -11,6 +11,9 @@ const postSchema = new mongoose.Schema({
     ref: 'User',
     required: true
   },
+  image: {
+    type: String // Ruta de la imagen almacenada
+  },
   likes: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'

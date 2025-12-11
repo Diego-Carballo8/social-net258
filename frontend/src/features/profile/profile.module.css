@@ -1,0 +1,256 @@
+:root {
+  --profileBg: url('https://i.postimg.cc/ryfhDPB6/depositphotos-557351356-stock-photo-young-group-of-people-laughing.jpg');
+}
+
+.banner {
+  background-image: linear-gradient(rgba(6, 24, 42, 0.45), rgba(6, 24, 42, 0.25)), var(--profileBg);
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  padding: 80px 0 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: auto;
+  padding: 0 24px 40px;
+  background: transparent;
+}
+
+.card {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 36px;
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  gap: 32px;
+  align-items: center;
+  box-shadow: 0 8px 28px rgba(15, 23, 42, 0.10);
+  transform: translateY(-60px);
+  border: 1px solid rgba(15, 23, 42, 0.04);
+}
+.avatar {
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 5px solid rgba(25, 118, 210, 0.08);
+}
+.info {
+  flex: 1;
+}
+.username {
+  margin: 0;
+  font-size: 26px;
+  font-weight: 700;
+}
+.email {
+  font-size: 14px;
+  color: #5f6c7b;
+  margin-top: 6px;
+}
+.meta {
+  font-size: 13px;
+  color: #8b96a5;
+  margin-top: 6px;
+}
+.stats {
+  display: flex;
+  gap: 18px;
+  margin-top: 14px;
+}
+.statItem {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.statNumber {
+  font-size: 20px;
+  font-weight: 700;
+}
+.statLabel {
+  font-size: 12px;
+  color: #8b96a5;
+}
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.btn {
+  background: #1976d2;
+  color: white;
+  border: none;
+  padding: 10px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(25, 118, 210, 0.12);
+}
+
+@media (max-width: 1000px) {
+  .card { max-width: 860px; padding: 28px; gap: 20px; transform: translateY(-50px); }
+  .avatar { width: 140px; height: 140px; }
+}
+
+@media (max-width: 800px) {
+  .card { flex-direction: column; align-items: center; padding: 20px; transform: translateY(-30px); }
+  .avatar { width: 120px; height: 120px; }
+  .stats { justify-content: center; }
+}
+.actions {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.btn {
+  padding: 8px 12px;
+  background: none;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  cursor: pointer;
+  color: #333;
+}
+
+.btnPrimary {
+  padding: 8px 12px;
+  background: #222;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.form {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.input {
+  flex: 1;
+  padding: 8px 10px;
+  border: 1px solid #e6e6e6;
+  border-radius: 8px;
+}
+
+.center { text-align: center; padding: 40px; color: #666; }
+
+.bioDisplay {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 12px;
+  padding: 10px 12px;
+  background: #f9f9f9;
+  border-radius: 8px;
+}
+
+.bioText {
+  margin: 0;
+  font-size: 14px;
+  color: #555;
+  flex: 1;
+  line-height: 1.4;
+}
+
+.bioPlaceholder {
+  color: #aaa;
+  font-style: italic;
+}
+
+.bioEditBtn {
+  background: none;
+  border: 1px solid #ddd;
+  color: #666;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 12px;
+  white-space: nowrap;
+  margin-left: 10px;
+}
+
+.bioEditBtn:hover {
+  background: #f0f0f0;
+  border-color: #999;
+}
+
+.bioEditContainer {
+  margin-top: 12px;
+}
+
+.bioInput {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 14px;
+  font-family: inherit;
+  resize: vertical;
+  min-height: 80px;
+  box-sizing: border-box;
+}
+
+.bioInput:focus {
+  outline: none;
+  border-color: #1976d2;
+  box-shadow: 0 0 6px rgba(25, 118, 210, 0.1);
+}
+
+.bioActions {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.bioBtn {
+  background: #1976d2;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.bioBtn:hover {
+  background: #1565c0;
+}
+
+.bioBtn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.bioCancelBtn {
+  background: none;
+  border: 1px solid #ddd;
+  color: #666;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.bioCancelBtn:hover {
+  background: #f0f0f0;
+  border-color: #999;
+}
+
+@media (max-width: 480px) {
+  .card { padding: 14px; }
+  .avatar { width: 96px; height: 96px; }
+  .username { font-size: 18px; }
+  .bioDisplay { flex-direction: column; align-items: flex-start; gap: 8px; }
+  .bioEditBtn { margin-left: 0; }
+}

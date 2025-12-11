@@ -1,4 +1,6 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import useAuth from '../shared/hooks/useAuth';
 
 const footerStyle = {
   position: 'fixed',
@@ -6,7 +8,7 @@ const footerStyle = {
   bottom: 0,
   width: '100%',
   height: '56px',
-  background: 'linear-gradient(90deg, #0099ff 40%, #ff7e5f 100%)',
+  background: '#0099ff',
   display: 'flex',
   justifyContent: 'space-around',
   alignItems: 'center',
@@ -24,12 +26,17 @@ const linkStyle = {
 };
 
 export default function Footer() {
+  const isAuthenticated = useAuth();
+
+  // No mostrar el footer si el usuario no está autenticado
+  if (!isAuthenticated) return null;
+
   return (
     <footer style={footerStyle}>
-      <a href="/" style={linkStyle}>Inicio</a>
-      <a href="/publicar" style={linkStyle}>Publicar</a>
-      <a href="/chat" style={linkStyle}>Chat</a>
-      <a href="/profile" style={linkStyle}>Perfil</a>
+      <Link to="/home" style={linkStyle}>Inicio</Link>
+      <Link to="/publicar" style={linkStyle}>Publicar</Link>
+      <Link to="/chat" style={linkStyle}>Chat</Link>
+      <Link to="/profile" style={linkStyle}>Perfil</Link>
     </footer>
   );
 }

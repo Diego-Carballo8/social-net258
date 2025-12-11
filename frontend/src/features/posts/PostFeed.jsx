@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import CreatePost from './CreatePost';
 import PostList from './PostList';
 
-const PostFeed = ({ posts, onPostCreated }) => {
+const PostFeed = ({ posts, onPostCreated, onPostDeleted }) => {
   // Si quieres manejar el estado aquí, descomenta las siguientes líneas:
   // const [posts, setPosts] = useState(initialPosts || []);
   // const handleNewPost = (newPost) => setPosts([newPost, ...posts]);
@@ -12,7 +12,7 @@ const PostFeed = ({ posts, onPostCreated }) => {
       {/* Formulario para crear publicación */}
       <CreatePost onCreate={onPostCreated} />
       {/* Lista de publicaciones */}
-      <PostList posts={posts} />
+      <PostList posts={posts} onDelete={onPostDeleted} />
     </div>
   );
 };

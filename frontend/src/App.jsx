@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import Login from './features/auth/Login';
 import Register from './features/auth/Register';
 import Home from './features/home/Home';
@@ -9,6 +9,7 @@ import CreatePost from './features/posts/CreatePost';
 import PostFeed from './features/posts/PostFeed';
 import Footer from './components/Footer';
 import Profile from './features/profile/Profile';
+import PublicProfile from './features/profile/PublicProfile';
 
 function App() {
   return (
@@ -19,9 +20,12 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
 
+          {/* Ruta principal: redirigir a /login por defecto. Home queda en /home */}
+          <Route path="/" element={<Navigate to="/login" replace />} />
+
           {/* Ruta protegida Home */}
           <Route
-            path="/"
+            path="/home"
             element={
               <PrivateRoute>
                 <Home />
@@ -69,14 +73,31 @@ function App() {
             }
           />
 
+          {/* Ruta para ver perfil público de otros usuarios */}
+          <Route
+            path="/profile/:userId"
+            element={
+              <PrivateRoute>
+                <PublicProfile />
+              </PrivateRoute>
+            }
+          />
+
           {/* Redirigir a /login si no se encuentra la ruta */}
           <Route path="*" element={<Navigate to="/login" />} />
         </Routes>
-        {/* Footer siempre visible */}
-        <Footer />
+        {/* Footer: ocultar en páginas públicas (login/register) */}
+        <FooterWrapper />
       </div>
     </Router>
   );
+}
+
+function FooterWrapper() {
+  const location = useLocation();
+  const publicPaths = ['/login', '/register'];
+  if (publicPaths.includes(location.pathname)) return null;
+  return <Footer />;
 }
 
 export default App;

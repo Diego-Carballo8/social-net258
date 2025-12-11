@@ -1,4 +1,5 @@
 import express from 'express';
+import fs from 'fs';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import http from 'http';
@@ -22,6 +23,15 @@ const server = http.createServer(app); // Cambia esto
 app.use(cors());
 app.use(express.json());
 
+// Servir archivos subidos (avatars, posts)
+const uploadsDir = 'uploads';
+const avatarsDir = `${uploadsDir}/avatars`;
+const postsDir = `${uploadsDir}/posts`;
+if (!fs.existsSync(uploadsDir)) fs.mkdirSync(uploadsDir);
+if (!fs.existsSync(avatarsDir)) fs.mkdirSync(avatarsDir, { recursive: true });
+if (!fs.existsSync(postsDir)) fs.mkdirSync(postsDir, { recursive: true });
+app.use('/uploads', express.static(uploadsDir));
+
 connectDB();
 
 // Ruta pública 
@@ -44,19 +54,59 @@ app.use(errorMiddleware);
 // --- SOCKET.IO ---
 const io = new SocketServer(server, {
   cors: {
-    origin: "http://localhost:5173", // O el puerto de tu frontend
+    origin: "http://localhost:5173",
     methods: ["GET", "POST"]
   }
 });
 
-io.on("connection", (socket) => {
-  console.log("Nuevo cliente conectado:", socket.id);
+// Almacenar usuarios conectados
+const connectedUsers = new Map();
 
-  socket.on("message", (body) => {
-    socket.broadcast.emit("message", {
-      body,
-      from: socket.id.slice(8),
+io.on("connection", (socket) => {
+  console.log("🔌 Nuevo cliente conectado:", socket.id);
+
+  // Registrar usuario conectado
+  socket.on("joinChat", ({ userId1, userId2 }) => {
+    const roomId = [userId1, userId2].sort().join("_");
+    socket.join(roomId);
+    connectedUsers.set(socket.id, { userId: userId1, roomId });
+    console.log(`📱 ${userId1} se unió a la sala: ${roomId}`);
+  });
+
+  // Escuchar mensajes
+  socket.on("sendMessage", async (data) => {
+    try {
+      const roomId = [data.from, data.to].sort().join("_");
+      // Guardar en DB es responsabilidad del frontend + API
+      io.to(roomId).emit("newMessage", {
+        from: data.from,
+        to: data.to,
+        text: data.text,
+        createdAt: new Date(),
+      });
+      console.log(`💬 Mensaje: ${data.from} → ${data.to}`);
+    } catch (error) {
+      console.error("Error emitiendo mensaje:", error);
+    }
+  });
+
+  // Escuchar "escribiendo"
+  socket.on("typing", (data) => {
+    const roomId = [data.userId, data.to].sort().join("_");
+    io.to(roomId).emit("userTyping", {
+      userId: data.userId,
+      to: data.to,
+      username: data.username,
     });
+  });
+
+  // Desconexión
+  socket.on("disconnect", () => {
+    const user = connectedUsers.get(socket.id);
+    if (user) {
+      connectedUsers.delete(socket.id);
+      console.log(`❌ ${user.userId} desconectado`);
+    }
   });
 });
 

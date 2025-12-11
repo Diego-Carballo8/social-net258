@@ -1,25 +1,285 @@
+/* Post Card */
 .post {
-  background: #fff;
-  border-radius: 8px;
+  background: var(--surface);
+  border-radius: 12px;
   padding: 16px;
   margin-bottom: 16px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border);
+  transition: all 0.18s ease;
+}
+
+.post:hover {
+  box-shadow: var(--shadow-md);
+  border-color: rgba(0, 212, 255, 0.2);
 }
 
 .post-list {
-  max-width: 600px;
+  max-width: 700px;
   margin: 0 auto;
-  padding: 24px;
+  padding: 24px 16px;
 }
 
+/* Create Post Container */
+.createPostContainer {
+  max-width: 840px;
+  margin: 32px auto;
+  padding: 20px 12px 110px; /* espacio extra para que el footer no tape el botón */
+}
+
+.createPostCard {
+  background: linear-gradient(180deg, rgba(255,255,255,0.96), rgba(248,250,252,0.96));
+  border-radius: 16px;
+  padding: 28px;
+  box-shadow: 0 12px 30px rgba(18,38,63,0.08);
+  border: 1px solid rgba(15,23,42,0.06);
+}
+
+.createPostCard h2 {
+  margin: 0 0 18px 0;
+  color: var(--text);
+  font-family: var(--font-display);
+}
+
+.createPostForm {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.postTextarea {
+  width: 100%;
+  padding: 16px 18px;
+  border: 1.5px solid rgba(15,23,42,0.06);
+  border-radius: 12px;
+  font-size: 16px;
+  line-height: 1.45;
+  font-family: var(--font-sans);
+  resize: vertical;
+  min-height: 88px;
+  transition: border-color 0.16s, box-shadow 0.16s;
+  background: #ffffff;
+  color: var(--text-dark, #1f2937);
+}
+
+.postTextarea:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 8px 28px rgba(14,165,164,0.06);
+}
+
+.postTextarea::placeholder {
+  color: var(--text-muted);
+}
+
+.postTextarea:disabled {
+  background: var(--bg);
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+/* Image Upload */
+.imageUploadSection {
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+  align-items: center;
+  border: 1px dashed rgba(100,116,139,0.12);
+  padding: 12px;
+  border-radius: 12px;
+  transition: background 0.12s, border-color 0.12s, box-shadow 0.12s;
+}
+
+.imageLabel {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  background: linear-gradient(135deg, #f0fbff, #f7f9fc);
+  color: var(--primary-teal, #00b4ff);
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 13px;
+  cursor: pointer;
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+  border: 1px dashed rgba(100,116,139,0.14);
+}
+
+.imageLabel:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(79,70,229,0.06);
+}
+
+.imageInput {
+  display: none;
+}
+
+.dragOver {
+  background: linear-gradient(90deg, rgba(99,102,241,0.04), rgba(14,165,164,0.03));
+  border-color: rgba(79,70,229,0.18);
+  box-shadow: 0 8px 28px rgba(79,70,229,0.05);
+}
+
+/* Image Preview */
+.imagePreviewContainer {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #ffffff;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.imagePreview {
+  width: 100%;
+  max-height: 380px;
+  border-radius: 10px;
+  object-fit: cover;
+  display: block;
+  cursor: zoom-in;
+}
+
+.removeImageBtn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: rgba(0, 0, 0, 0.65);
+  color: #fff;
+  border: none;
+  border-radius: 14px;
+  padding: 6px 10px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: transform 0.12s ease, background 0.12s;
+}
+
+.removeImageBtn:hover {
+  transform: translateY(-2px);
+}
+
+/* Lightbox */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.lightboxContent {
+  position: relative;
+  max-width: 90vw;
+  max-height: 90vh;
+}
+
+.lightboxContent img {
+  max-width: 100%;
+  max-height: 90vh;
+  border-radius: 10px;
+  box-shadow: var(--shadow-lg);
+}
+
+.lightboxClose {
+  position: absolute;
+  top: -12px;
+  right: -12px;
+  background: rgba(255,255,255,0.9);
+  border: none;
+  border-radius: 999px;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+}
+
+.hintText {
+  color: var(--text-muted);
+  font-size: 13px;
+}
+
+.removeImageBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Submit Button */
+.submitBtn {
+  background: linear-gradient(90deg, #00b4ff 0%, #6b46ff 100%);
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  padding: 12px 22px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.12s ease, box-shadow 0.12s ease, opacity 0.12s;
+  box-shadow: 0 8px 24px rgba(59,130,246,0.16);
+  font-family: var(--font-sans);
+  align-self: center; /* centra el botón */
+  width: 220px;
+  position: relative;
+  z-index: 4; /* sobre otros elementos */
+}
+
+.submitBtn:hover:not(:disabled) {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 40px rgba(59,130,246,0.18);
+}
+
+.submitBtn:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.submitBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.actionRow {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 4px;
+}
+
+/* Action Buttons */
 .actionBtn {
   background: none;
   border: none;
-  color: #888;
+  color: var(--text-light);
   cursor: pointer;
-  font-size: 1rem;
+  font-size: 16px;
   transition: color 0.2s;
+  padding: 4px 8px;
 }
+
 .actionBtn:hover {
-  color: #007bff;
+  color: var(--primary-teal);
+}
+
+/* Responsive */
+@media screen and (max-width: 600px) {
+  .createPostCard {
+    padding: 20px 14px;
+    border-radius: 12px;
+  }
+
+  .createPostContainer {
+    margin: 18px auto;
+    padding-bottom: 140px; /* más espacio para móvil y footer fijo */
+  }
+
+  .postTextarea {
+    padding: 12px 14px;
+    font-size: 15px;
+  }
+
+  .submitBtn { width: 100%; max-width: 480px; }
 }

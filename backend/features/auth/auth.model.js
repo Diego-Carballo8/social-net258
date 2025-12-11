@@ -6,7 +6,8 @@ const userSchema = new mongoose.Schema({
   username: { type: String, required: true, minlength: 3, maxlength: 20 },
   email: { type: String, required: true, unique: true, match: [/.+@.+\..+/, 'Por favor ingrese un correo válido'] },
   password: { type: String, required: true, minlength: 6 },
-  avatar: { type: String }, // <-- Agrega esta línea
+  avatar: { type: String },
+  bio: { type: String, default: '', maxlength: 160 },
   createdAt: { type: Date, default: Date.now }
 });
 
