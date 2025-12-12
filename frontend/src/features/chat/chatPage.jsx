@@ -7,61 +7,59 @@ export default function ChatPage() {
   const [selectedUserId, setSelectedUserId] = useState(null);
 
   return (
-    <PrivateRoute>
+    <div
+      style={{
+        display: "flex",
+        height: "calc(100vh - 80px)",
+        background: "#fff",
+      }}
+    >
+      {/* User List Sidebar */}
       <div
         style={{
-          display: "flex",
-          height: "calc(100vh - 56px)",
-          background: "#fff",
-          marginBottom: "56px",
+          width: 280,
+          background: "rgba(255, 255, 255, 0.9)",
+          borderRight: "1px solid #e0e0e0",
+          overflowY: "auto",
+          overflowX: "hidden",
+          backdropFilter: "blur(10px)",
         }}
       >
-        {/* User List Sidebar */}
-        <div
-          style={{
-            width: 220,
-            background: "#fff",
-            borderRight: "1px solid #e0e0e0",
-            overflowY: "auto",
-            overflowX: "hidden",
-          }}
-        >
-          <UserList
-            onSelect={setSelectedUserId}
-            selectedUserId={selectedUserId}
-          />
-        </div>
-
-        {/* Chat Area */}
-        <div
-          style={{
-            flex: 1,
-            display: "flex",
-            flexDirection: "column",
-            background: "#fff",
-          }}
-        >
-          {selectedUserId ? (
-            <Chat userId={selectedUserId} />
-          ) : (
-            <div
-              style={{
-                flex: 1,
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                color: "#999",
-                fontSize: "16px",
-                flexDirection: "column",
-                gap: "16px",
-              }}
-            >
-              <div style={{ fontSize: "48px" }}>💬</div>
-              <p>Selecciona un usuario para comenzar a chatear</p>
-            </div>
-          )}
-        </div>
+        <UserList
+          onSelect={setSelectedUserId}
+          selectedUserId={selectedUserId}
+        />
       </div>
-    </PrivateRoute>
+
+      {/* Chat Area */}
+      <div
+        style={{
+          flex: 1,
+          display: "flex",
+          flexDirection: "column",
+          background: "#fff",
+        }}
+      >
+        {selectedUserId ? (
+          <Chat userId={selectedUserId} />
+        ) : (
+          <div
+            style={{
+              flex: 1,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              color: "#999",
+              fontSize: "16px",
+              flexDirection: "column",
+              gap: "16px",
+            }}
+          >
+            <div style={{ fontSize: "48px" }}>💬</div>
+            <p>Selecciona un usuario para comenzar a chatear</p>
+          </div>
+        )}
+      </div>
+    </div>
   );
 }

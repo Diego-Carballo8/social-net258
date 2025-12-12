@@ -61,7 +61,7 @@ export default function UserSearch() {
               onClick={() => handleUserClick(user._id)}
             >
               <img
-                src={user.avatar || DEFAULT_AVATAR}
+                src={DEFAULT_AVATAR}
                 alt={user.username}
                 className={styles.resultAvatar}
               />

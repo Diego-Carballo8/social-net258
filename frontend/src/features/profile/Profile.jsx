@@ -101,7 +101,7 @@ export default function Profile() {
   if (loading) return <div className={styles.center}>Cargando perfil...</div>;
   if (!user) return <div className={styles.center}>No se pudo cargar el usuario.</div>;
 
-  const avatarSrc = isDirectImageUrl(user?.avatar) ? normalizeImgurUrl(user.avatar) : DEFAULT_AVATAR;
+  const avatarSrc = DEFAULT_AVATAR; // Siempre usar el icono sombreado por defecto
 
   return (
     <div className={styles.banner}>

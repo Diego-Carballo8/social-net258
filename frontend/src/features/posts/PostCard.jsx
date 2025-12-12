@@ -3,6 +3,8 @@ import React, { useState } from 'react';
 import styles from './style.module.css';
 import CommentSection from './CommentSection';
 
+const DEFAULT_AVATAR = `data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240' viewBox='0 0 24 24' fill='none' stroke='%23333' stroke-width='1' stroke-linecap='round' stroke-linejoin='round'><rect width='24' height='24' rx='4' fill='%23f3f4f6'/><path d='M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4z' fill='%23e6eaf0'/><path d='M4 20c0-2.21 3.58-4 8-4s8 1.79 8 4' fill='%23e6eaf0'/></svg>`;
+
 const PostCard = ({ post, onDelete }) => {
   const userId = localStorage.getItem('userId');
   const [postData, setPostData] = useState(post);
@@ -54,7 +56,7 @@ const PostCard = ({ post, onDelete }) => {
   <article className={styles.post}>
     <header style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
       <img
-        src={post.userImg || "https://randomuser.me/api/portraits/men/32.jpg"}
+        src={DEFAULT_AVATAR}
         alt={post.author?.username || post.author || "Usuario"}
         style={{ width: 40, height: 40, borderRadius: '50%', objectFit: 'cover' }}
       />

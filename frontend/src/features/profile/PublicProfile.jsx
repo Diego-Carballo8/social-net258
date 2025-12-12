@@ -4,6 +4,8 @@ import styles from './publicProfile.module.css';
 
 const API_BASE_URL = 'http://localhost:3000/api/v1';
 
+const DEFAULT_AVATAR = `data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240' viewBox='0 0 24 24' fill='none' stroke='%23333' stroke-width='1' stroke-linecap='round' stroke-linejoin='round'><rect width='24' height='24' rx='4' fill='%23f3f4f6'/><path d='M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4z' fill='%23e6eaf0'/><path d='M4 20c0-2.21 3.58-4 8-4s8 1.79 8 4' fill='%23e6eaf0'/></svg>`;
+
 function normalizeImgurUrl(url) {
   if (!url) return url;
   if (url.match(/\.(jpg|jpeg|png|gif|webp)$/i)) return url;
@@ -44,7 +46,7 @@ export default function PublicProfile() {
       <button className={styles.backBtn} onClick={() => navigate(-1)}>← Volver</button>
 
       <div className={styles.card}>
-        <img className={styles.avatar} src={normalizeImgurUrl(user.avatar) || 'https://randomuser.me/api/portraits/men/32.jpg'} alt={user.username} />
+        <img className={styles.avatar} src={DEFAULT_AVATAR} alt={user.username} />
         <div className={styles.info}>
           <h2 className={styles.username}>{user.username}</h2>
           <div className={styles.email}>{user.email}</div>

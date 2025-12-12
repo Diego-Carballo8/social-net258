@@ -80,88 +80,53 @@ const Home = () => {
   const userId = localStorage.getItem('userId'); // Obtén tu propio ID
 
   return (
-    <div className={styles.snappyBg}>
+    <div className={styles.homeContainer}>
       <header className={styles.header}>
-        <div className={styles.logo}>
-          <i className="fas fa-bolt"></i> Snappy
-        </div>
         <UserSearch />
         <div className={styles.headerIcons}>
           <i className={`fas fa-bell ${styles.icon}`}></i>
-          <div className={styles.profileArea}>
-            <img
-              src={user?.avatar || "https://randomuser.me/api/portraits/men/32.jpg"}
-              alt="Perfil"
-              className={styles.profileThumb}
-            />
-            <button
-              className={styles.logoutBtn}
-              onClick={handleLogout}
-            >
-              Cerrar sesión
-            </button>
-          </div>
         </div>
       </header>
 
-      <main className={styles.mainContent}>
-        <section className={styles.welcomeSection}>
-          <h1>¡Bienvenido a Snappy!</h1>
-          <p>Comparte momentos, descubre temas y conecta con tu comunidad.</p>
-        </section>
+      <section className={styles.welcomeSection}>
+        <h1>¡Bienvenido a Snappy!</h1>
+        <p>Comparte momentos, descubre temas y conecta con tu comunidad.</p>
+      </section>
 
-        <section className={styles.topicsSection}>
-          <div className={styles.topicsHeader}>
-            <h2 className={styles.sectionTitle}>Temas populares</h2>
-            <button className={styles.createTopicBtn} onClick={() => navigate('/publicar')}>
-              <i className="fas fa-plus"></i> Crear Publicación
-            </button>
-          </div>
-          <div className={styles.topicsContainer} ref={topicsContainerRef}>
-            {topics.length === 0 && (
-              <div className={styles.topicCard}>Sin temas</div>
-            )}
-            {topics.map(topic => (
-              <div className={styles.topicCard} key={topic._id || topic.name}>
-                #{topic.name}
-              </div>
-            ))}
-          </div>
-          <div className={styles.topicsNavigation} onClick={handleTopicsScroll}>
-            <i className="fas fa-arrow-right"></i>
-          </div>
-        </section>
-
-        <section className={styles.feedSection}>
-          <PostFeed
-            posts={posts}
-            onPostCreated={post => setPosts([post, ...posts])}
-            onPostDeleted={id => setPosts(posts.filter(p => p._id !== id && p.id !== id))}
-          />
-          {/* Títulos debajo del formulario */}
-          <h2 className={styles.sectionTitle}>Publicaciones recientes</h2>
-          <h2 className={styles.sectionTitle}>Últimas publicaciones</h2>
-          {posts.length === 0 && (
-            <div className={styles.emptyFeed}>No hay publicaciones aún.</div>
+      <section className={styles.topicsSection}>
+        <div className={styles.topicsHeader}>
+          <h2 className={styles.sectionTitle}>Temas populares</h2>
+          <button className={styles.createTopicBtn} onClick={() => navigate('/publicar')}>
+            <i className="fas fa-plus"></i> Crear Publicación
+          </button>
+        </div>
+        <div className={styles.topicsContainer} ref={topicsContainerRef}>
+          {topics.length === 0 && (
+            <div className={styles.topicCard}>Sin temas</div>
           )}
-          {/* <PostList posts={posts} />  <-- Elimina esta línea */}
-        </section>
-      </main>
+          {topics.map(topic => (
+            <div className={styles.topicCard} key={topic._id || topic.name}>
+              #{topic.name}
+            </div>
+          ))}
+        </div>
+        <div className={styles.topicsNavigation} onClick={handleTopicsScroll}>
+          <i className="fas fa-arrow-right"></i>
+        </div>
+      </section>
 
-      <nav className={styles.footerNav}>
-        <Link to="/home" className={styles.navItem}>
-          <i className="fas fa-home"></i><span>Inicio</span>
-        </Link>
-        <Link to="/publicar" className={styles.navItem}>
-            <i className="fas fa-plus-circle"></i><span>Publicar</span>
-        </Link>
-        <Link to={userId ? `/chat/${userId}` : "/chat"} className={styles.navItem}>
-          <i className="fas fa-user-friends"></i><span>Chat</span>
-        </Link>
-        <Link to="/profile" className={styles.navItem}>
-          <i className="fas fa-cog"></i><span>Perfil</span>
-        </Link>
-      </nav>
+      <section className={styles.feedSection}>
+        <PostFeed
+          posts={posts}
+          onPostCreated={post => setPosts([post, ...posts])}
+          onPostDeleted={id => setPosts(posts.filter(p => p._id !== id && p.id !== id))}
+        />
+        {/* Títulos debajo del formulario */}
+        <h2 className={styles.sectionTitle}>Publicaciones recientes</h2>
+        {posts.length === 0 && (
+          <div className={styles.emptyFeed}>No hay publicaciones aún.</div>
+        )}
+      </section>
     </div>
   );
 };
